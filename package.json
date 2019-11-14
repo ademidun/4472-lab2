@@ -1,0 +1,15 @@
+{
+  "name": "4452-lab2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "2018Test.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "jest": "^24.9.0"
+  }
+}
