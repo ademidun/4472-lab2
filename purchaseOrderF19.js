@@ -1,6 +1,5 @@
-var getAgeFactor=function(clientAccount )
-
-{ var factor ;
+export const getAgeFactor=function(clientAccount ) {
+    let factor ;
 
     if (clientAccount.age <15 || clientAccount.age >110)
 
@@ -28,11 +27,9 @@ var getAgeFactor=function(clientAccount )
 
     return factor;
 
-}
-
-var getBalanceFactor=function (clientAccount )
-
-{    var factor;
+};
+export const getBalanceFactor=function (clientAccount ) {
+    let factor;
 
 
     if (clientAccount.balance <= 0 || clientAccount.balance > 5000)
@@ -61,15 +58,14 @@ var getBalanceFactor=function (clientAccount )
 
     return factor;
 
-}
+};
+export const accountStatus=function (clientAccount ) {
 
-var accountStatus=function (clientAccount ) {
+    let factor1 = getAgeFactor(clientAccount );
 
-    var factor1 = getAgeFactor(clientAccount );
+    let factor2 = getBalanceFactor(clientAccount );
 
-    var factor2 = getBalanceFactor(clientAccount );
-
-    var factor3 = factor1 * factor2;
+    let factor3 = factor1 * factor2;
 
     if (factor3 = 0)
 
@@ -86,17 +82,15 @@ var accountStatus=function (clientAccount ) {
 
     	else if (factor3 < 1000)
 
-        return "good"
+        return "good";
 
   	else
 
         return "excellent";
 
-}
-
-var creditStatus=function (clientAccount,creditCheckMode)
-
-{var scoreThreshold;
+};
+export const creditStatus=function (clientAccount,creditCheckMode) {
+    let scoreThreshold;
 
     if (clientAccount.creditScore <0 || clientAccount.creditScore >100)
 
@@ -117,13 +111,11 @@ var creditStatus=function (clientAccount,creditCheckMode)
 
      else return "good";
 
-}
+};
+export const productStatus=function (product,inventory,inventoryThreshold) {
+    let q;
 
-var productStatus=function (product,inventory,inventoryThreshold)
-
-{ var q;
-
-    for (i=0;i<=inventory.length;i++)
+    for (let i=0;i<=inventory.length;i++)
 
     {
         if (product == inventory[i].name)
@@ -137,24 +129,22 @@ var productStatus=function (product,inventory,inventoryThreshold)
 
             else if (q > inventoryThreshold)
 
-              return "limited"
+              return "limited";
 
             else return "available"
 		}
     }
  return "invalid";
-}
+};
+
+export const orderHandling=function(clientAccount ,product,inventory,inventoryThreshold,creditCheckMode) {
 
 
-var orderHandling=function(clientAccount ,product,inventory,inventoryThreshold,creditCheckMode)
+    let aStautus=accountStatus(clientAccount );
 
-{
+    let cStatus=creditStatus(clientAccount ,creditCheckMode);
 
-    var aStautus=accountStatus(clientAccount );
-
-    var cStatus=creditStatus(clientAccount ,creditCheckMode);
-
-    var pStatus=productStatus(product,inventory,inventoryThreshold);
+    let pStatus=productStatus(product,inventory,inventoryThreshold);
 
    if ((aStautus==="invalid"||cStatus==="invalid"||pStatus!= "invalid")|| 
    (aStautus==="acceptable" &&  cStatus==="adverse" && pStatus!="available") ||     
@@ -179,4 +169,4 @@ else if ((aStautus ==="acceptable" && cStatus==="good" && pStatus!="available")
 
 
 
-}
+};
