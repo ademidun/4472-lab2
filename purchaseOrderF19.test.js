@@ -190,7 +190,7 @@ describe('PurchaseOrder', () => {
     describe('Boundary Value Tests', function() {
         // Setup test accounts 
         const bca1 = new ClientAccount(14, 0, 0);
-        const bca2 = new ClientAccount(110, 50000, 0);
+        const bca2 = new ClientAccount(110, 5000, 0);
         const bca3 = new ClientAccount(15, 1, 0);
         const bca4 = new ClientAccount(19, 99, 0);
         const bca5 = new ClientAccount(20, 100, 0);
@@ -329,8 +329,8 @@ describe('PurchaseOrder', () => {
                 assert.equal(AccountStatus(aS1), 'invalid');
             });
 
-            it('should equal very good', function() {
-                assert.equal(AccountStatus(aS2), 'very good');
+            it('should equal excellent', function() {
+                assert.equal(AccountStatus(aS2), 'excellent');
             })
         });
 
@@ -393,7 +393,7 @@ describe('PurchaseOrder', () => {
 
     describe('Decision Table Testing', function() {
         // Setup accounts for decision testing
-        const d1 = new ClientAccount(35, 12000, 75); // very good, good
+        const d1 = new ClientAccount(35, 12000, 75); // excellent, good
         const d2 = new ClientAccount(20, 3500,  75); // good, good
         const d3 = new ClientAccount(5, 300, 85); // fair, good
         const d4 = new ClientAccount(17, 50, 75); // poor, good
