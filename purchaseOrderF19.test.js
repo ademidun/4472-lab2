@@ -397,11 +397,11 @@ describe('PurchaseOrder', () => {
         const d2 = new ClientAccount(20, 3500,  75); // good, good
         const d3 = new ClientAccount(25, 300, 85); // acceptable, good
         const d4 = new ClientAccount(17, 350, 75); // adverse, good
-        const d5 = new ClientAccount(0, -100, 95); // invalid, good
+        new ClientAccount(0, -100, 95);  // invalid, good
         const d6 = new ClientAccount(35, 900, 40); // good, adverse
         const d7 = new ClientAccount(15, 500, 40); // acceptable, adverse
         const d8 = new ClientAccount(0, -100, -15); // invalid, invalid
-        const d9 = new ClientAccount(7, 50, 30); // adverse, adverse
+        new ClientAccount(7, 50, 30);  // adverse, adverse
 
         // Setup inventory for decision testing 
         const inv1 = new Inventory('apple', 0);
