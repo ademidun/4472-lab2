@@ -2,9 +2,9 @@ const assert = require('assert');
 const getAgeFactor = require('./purchaseOrderF19').getAgeFactor;
 const getBalanceFactor = require('./purchaseOrderF19').getBalanceFactor;
 const AccountStatus = require('./purchaseOrderF19').accountStatus;
-const creditStatus = require('./purchaseOrderF19').creditStatus;
-const productStatus = require('./purchaseOrderF19').productStatus;
-const orderHandling = require('./purchaseOrderF19').orderHandling;
+const {creditStatus } = require('./purchaseOrderF19');
+const {productStatus} = require('./purchaseOrderF19');
+const {orderHandling} = require('./purchaseOrderF19');
 
 describe('PurchaseOrder', () => {
 
@@ -36,7 +36,7 @@ describe('PurchaseOrder', () => {
         const ca2 = new ClientAccount(120, 12000,120);
         const ca3 = new ClientAccount(17, 17,17);
         const ca4 = new ClientAccount(20, 200,200);
-        const ca5 = new ClientAccount(35, 350,55);
+        const ca5 = new ClientAccount(35, 550,55);
         const ca6 = new ClientAccount(77, 1550,80);
         const ca7 = new ClientAccount(55, 3500,80);
         const ca8 = new ClientAccount(17, 17, 120);
@@ -126,27 +126,27 @@ describe('PurchaseOrder', () => {
 
         describe('creditStatus() tests', function() {
             it('should equal adverse in restricted mode', function() {
-                assert.equal(creditStatus(ca1, 'restricted'), 'adverse');
+                assert.equal(creditStatus(ca3, 'restricted'), 'adverse');
             });
 
             it('should equal adverse in default mode', function() {
-                assert.equal(creditStatus(ca2, 'default'), 'adverse');
+                assert.equal(creditStatus(ca3, 'default'), 'adverse');
             });
 
             it('should equal good in restricted mode', function() {
-                assert.equal(creditStatus(ca3, 'restricted'), 'good');
+                assert.equal(creditStatus(ca5, 'restricted'), 'good');
             });
 
             it('should equal good in default mode', function() {
-                assert.equal(creditStatus(ca4, 'default'), 'good');
+                assert.equal(creditStatus(ca6, 'default'), 'good');
             });
 
             it('should equal invalid', function() {
-                assert.equal(creditStatus(ca5, 'restricted'), 'invalid');
+                assert.equal(creditStatus(ca1, 'restricted'), 'invalid');
             });
 
             it('should equal invalid, case 2', function() {
-                assert.equal(creditStatus(ca6, 'restricted'), 'invalid');
+                assert.equal(creditStatus(ca9, 'restricted'), 'invalid');
             })
         });
 

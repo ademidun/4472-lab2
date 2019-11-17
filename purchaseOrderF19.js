@@ -1,7 +1,7 @@
 const getAgeFactor=function(clientAccount ) {
     let factor ;
 
-    if (clientAccount.age <15 || clientAccount.age >110)
+    if (clientAccount.age <15 || clientAccount.age >= 110)
 
         factor= 0;
 
@@ -21,7 +21,7 @@ const getAgeFactor=function(clientAccount ) {
 
         factor =50;
 
-    else if (clientAccount.age <=110)
+    else if (clientAccount.age <110)
 
         factor =20;
 
@@ -32,7 +32,7 @@ const getBalanceFactor=function (clientAccount ) {
     let factor;
 
 
-    if (clientAccount.balance <= 0 || clientAccount.balance > 5000)
+    if (clientAccount.balance <= 0 || clientAccount.balance >= 5000)
 
         factor = 0;
 
@@ -67,7 +67,7 @@ const accountStatus=function (clientAccount ) {
 
     let factor3 = factor1 * factor2;
 
-    if (factor3 = 0)
+    if (factor3 === 0)
 
         return "invalid"
 ;
@@ -97,15 +97,15 @@ const creditStatus=function (clientAccount,creditCheckMode) {
        return "invalid";
 
 
-    if (creditCheckMode ==="strict")
+    if (creditCheckMode === "restricted")
 
         scoreThreshold=50;
 
-      else if (creditCheckMode ==="default")
+      else if (creditCheckMode === "default")
 
         scoreThreshold=75;
 
-    if (clientAccount.creditScore > scoreThreshold)
+    if (clientAccount.creditScore < scoreThreshold)
 
         return "adverse";
 
@@ -115,20 +115,14 @@ const creditStatus=function (clientAccount,creditCheckMode) {
 const productStatus=function (product,inventory,inventoryThreshold) {
     let q;
 
-    for (let i=0;i<=inventory.length;i++)
-
-    {
-        if (product == inventory[i].name)
-
-            {
+    for (let i=0;i<inventory.length;i++){
+        if (product === inventory[i].name){
               q=inventory[i].q;
 
-          	 if (q==0)
-
+          	 if (q===0)
               return "soldout";
 
-            else if (q > inventoryThreshold)
-
+            else if (q < inventoryThreshold)
               return "limited";
 
             else return "available"
@@ -146,23 +140,23 @@ const orderHandling=function(clientAccount ,product,inventory,inventoryThreshold
 
     let pStatus=productStatus(product,inventory,inventoryThreshold);
 
-   if ((aStautus==="invalid"||cStatus==="invalid"||pStatus!= "invalid")|| 
-   (aStautus==="acceptable" &&  cStatus==="adverse" && pStatus!="available") ||     
-   (aStautus==="adverse" && cStatus==="good" && pStatus==="soldout") || 
-   (aStautus==="adverse" && cStatus==="adverse" ))
+   if ((aStautus=== "invalid"||cStatus=== "invalid"||pStatus !== "invalid")|| 
+   (aStautus=== "acceptable" &&  cStatus=== "adverse" && pStatus !=="limited") ||
+   (aStautus=== "adverse" && cStatus=== "good" && pStatus=== "soldout") || 
+   (aStautus=== "adverse" && cStatus=== "adverse" ))
         return "rejected";
 
- else if ((aStautus==="excellent")|| (aStautus==="good" && cStatus==="good")||
-(aStautus=== "acceptable" && cStatus==="good" && 	pStatus==="available"))
+ else if ((aStautus=== "excellent")|| (aStautus=== "good" && cStatus=== "good")||
+(aStautus=== "acceptable" && cStatus=== "good" && 	pStatus=== "available"))
         return "accepted";
 
 
-else if ((aStautus==="good" && cStatus ==="adverse")||(aStautus==="acceptable" && cStatus==="adverse"
- && pStatus==="available"))
+else if ((aStautus=== "good" && cStatus === "adverse")||(aStautus=== "acceptable" && cStatus=== "adverse"
+ && pStatus=== "available"))
         return "underReview";
 
-else if ((aStautus ==="acceptable" && cStatus==="good" && pStatus!="available")
-||(aStautus==="adverse" && cStatus==="good" && pStatus==="limited"))
+else if ((aStautus === "acceptable" && cStatus=== "good" && pStatus !== "available")
+||(aStautus=== "adverse" && cStatus=== "good" && pStatus=== "limited"))
         return "pending";
 
 
