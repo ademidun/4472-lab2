@@ -19,9 +19,9 @@ describe('PurchaseOrder', () => {
     }
 
     class Inventory {
-        constructor(productName, productQuantity) {
-            this.productName = productName;
-            this.productQuantity = productQuantity;
+        constructor(name, q) {
+            this.name = name;
+            this.q = q;
         }
     }
 
@@ -411,59 +411,59 @@ describe('PurchaseOrder', () => {
 
         describe('orderHandling tests', function() {
             it('should equal accepted', function() {
-                assert.equal(po.orderHandling(d1, 'apple', invArray, 500, 'default'), 'accepted');
+                assert.equal(orderHandling(d1, 'apple', invArray, 500, 'default'), 'accepted');
             });
 
             it('should equal accepted, case 2', function() {
-                assert.equal(po.orderHandling(d2, 'apple', invArray, 500, 'default'), 'accepted');
+                assert.equal(orderHandling(d2, 'apple', invArray, 500, 'default'), 'accepted');
             });
 
             it('should equal accepted, case 3', function() {
-                assert.equal(po.orderHandling(d4, 'banana', invArray, 50, 'default'), 'accepted');
+                assert.equal(orderHandling(d4, 'banana', invArray, 50, 'default'), 'accepted');
             });
 
             it('should equal accepted, case 4', function() {
-                assert.equal(po.orderHandling(d3, 'banana', invArray, 50, 'default'), 'accepted');
+                assert.equal(orderHandling(d3, 'banana', invArray, 50, 'default'), 'accepted');
             });
 
             it('should equal pending', function() {
-                assert.equal(po.orderHandling(d3, 'banana', invArray, 500, 'default'), 'pending');
+                assert.equal(orderHandling(d3, 'banana', invArray, 500, 'default'), 'pending');
             });
 
             it('should equal pending, case 2', function() {
-                assert.equal(po.orderHandling(d3, 'apple', invArray, 110, 'default'), 'pending');
+                assert.equal(orderHandling(d3, 'apple', invArray, 110, 'default'), 'pending');
             });
 
             it('should equal pending, case 3', function() {
-                assert.equal(po.orderHandling(d4, 'banana', invArray, 500, 'default'), 'pending');
+                assert.equal(orderHandling(d4, 'banana', invArray, 500, 'default'), 'pending');
             });
 
             it('should equal underReview', function() {
-                assert.equal(po.orderHandling(d6, 'apple', invArray, 500, 'default'), 'underReview');
+                assert.equal(orderHandling(d6, 'apple', invArray, 500, 'default'), 'underReview');
             });
 
             it('should equal underReview, case 2', function() {
-                assert.equal(po.orderHandling(d7, 'banana', invArray, 50, 'default'), 'underReview');
+                assert.equal(orderHandling(d7, 'banana', invArray, 50, 'default'), 'underReview');
             });
 
             it('should equal rejected', function() {
-                assert.equal(po.orderHandling(d8, 'orange', invArray, 500, 'default'), 'rejected');
+                assert.equal(orderHandling(d8, 'orange', invArray, 500, 'default'), 'rejected');
             });
 
             it('should equal rejected, case 2', function() {
-                assert.equal(po.orderHandling(d7, 'banana', invArray, 500, 'default'), 'rejected');
+                assert.equal(orderHandling(d7, 'banana', invArray, 500, 'default'), 'rejected');
             });
 
             it('should equal rejected, case 3', function() {
-                assert.equal(po.orderHandling(d7, 'apple', invArray, 500, 'default'), 'rejected');
+                assert.equal(orderHandling(d7, 'apple', invArray, 500, 'default'), 'rejected');
             });
 
             it('should equal rejected, case 4', function() {
-                assert.equal(po.orderHandling(d4, 'apple', invArray, 500, 'default'), 'rejected');
+                assert.equal(orderHandling(d4, 'apple', invArray, 500, 'default'), 'rejected');
             });
 
             it('should equal rejected, case 5', function() {
-                assert.equal(po.orderHandling(d4, 'apple', invArray, 500, 'default'), 'rejected');
+                assert.equal(orderHandling(d4, 'apple', invArray, 500, 'default'), 'rejected');
             })
         })
     })

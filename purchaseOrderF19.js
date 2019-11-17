@@ -1,4 +1,4 @@
-export const getAgeFactor=function(clientAccount ) {
+const getAgeFactor=function(clientAccount ) {
     let factor ;
 
     if (clientAccount.age <15 || clientAccount.age >110)
@@ -28,7 +28,7 @@ export const getAgeFactor=function(clientAccount ) {
     return factor;
 
 };
-export const getBalanceFactor=function (clientAccount ) {
+const getBalanceFactor=function (clientAccount ) {
     let factor;
 
 
@@ -59,7 +59,7 @@ export const getBalanceFactor=function (clientAccount ) {
     return factor;
 
 };
-export const accountStatus=function (clientAccount ) {
+const accountStatus=function (clientAccount ) {
 
     let factor1 = getAgeFactor(clientAccount );
 
@@ -89,7 +89,7 @@ export const accountStatus=function (clientAccount ) {
         return "excellent";
 
 };
-export const creditStatus=function (clientAccount,creditCheckMode) {
+const creditStatus=function (clientAccount,creditCheckMode) {
     let scoreThreshold;
 
     if (clientAccount.creditScore <0 || clientAccount.creditScore >100)
@@ -112,7 +112,7 @@ export const creditStatus=function (clientAccount,creditCheckMode) {
      else return "good";
 
 };
-export const productStatus=function (product,inventory,inventoryThreshold) {
+const productStatus=function (product,inventory,inventoryThreshold) {
     let q;
 
     for (let i=0;i<=inventory.length;i++)
@@ -137,7 +137,7 @@ export const productStatus=function (product,inventory,inventoryThreshold) {
  return "invalid";
 };
 
-export const orderHandling=function(clientAccount ,product,inventory,inventoryThreshold,creditCheckMode) {
+const orderHandling=function(clientAccount ,product,inventory,inventoryThreshold,creditCheckMode) {
 
 
     let aStautus=accountStatus(clientAccount );
@@ -169,4 +169,9 @@ else if ((aStautus ==="acceptable" && cStatus==="good" && pStatus!="available")
 
 
 
+};
+
+module.exports = {
+    getAgeFactor, getBalanceFactor, accountStatus, creditStatus,
+    productStatus, orderHandling
 };
