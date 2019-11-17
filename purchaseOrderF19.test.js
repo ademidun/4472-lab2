@@ -1,7 +1,7 @@
 const assert = require('assert');
-const getAgeFactor = require('./purchaseOrderF19').getAgeFactor;
-const getBalanceFactor = require('./purchaseOrderF19').getBalanceFactor;
-const AccountStatus = require('./purchaseOrderF19').accountStatus;
+const {getAgeFactor} = require('./purchaseOrderF19');
+const {getBalanceFactor} = require('./purchaseOrderF19');
+const {accountStatus : AccountStatus} = require('./purchaseOrderF19');
 const {creditStatus } = require('./purchaseOrderF19');
 const {productStatus} = require('./purchaseOrderF19');
 const {orderHandling} = require('./purchaseOrderF19');
@@ -39,7 +39,7 @@ describe('PurchaseOrder', () => {
         const ca5 = new ClientAccount(35, 550,55);
         const ca6 = new ClientAccount(77, 1550,80);
         const ca7 = new ClientAccount(55, 3500,80);
-        const ca8 = new ClientAccount(17, 17, 120);
+        const ca8 = new ClientAccount(25, 350, 90);
         const ca9 = new ClientAccount(0, 350, -100);
 
         describe('getAgeFactor() tests', function() {
@@ -174,11 +174,11 @@ describe('PurchaseOrder', () => {
             });
 
             it('should equal pending', function() {
-                assert.equal(orderHandling(ca4, 'apple', invArray, 500, 'default'), 'pending');
+                assert.equal(orderHandling(ca8, 'apple', invArray, 50, 'default'), 'pending');
             });
 
             it('should equal underReview', function() {
-                assert.equal(orderHandling(ca8, 'grape', invArray, 50, 'default'), 'underReview');
+                assert.equal(orderHandling(ca5, 'grape', invArray, 50, 'default'), 'underReview');
             });
 
             it('should equal rejected', function() {
@@ -204,7 +204,7 @@ describe('PurchaseOrder', () => {
 
         // Test accounts for AccountStatus
         const aS1 = new ClientAccount(0, 50, 0);
-        const aS2 = new ClientAccount(7, 4000, 0);
+        const aS2 = new ClientAccount(55, 4000, 0);
 
         // Test accounts for creditStatus
         const cs1 = new ClientAccount(0, 0, 0);
@@ -258,19 +258,19 @@ describe('PurchaseOrder', () => {
             });
 
             it('should equal 20, case 3', function() {
-                assert.equal(getAgeFactor(bca9), 20);
+                assert.equal(getAgeFactor(bca11), 20);
             });
 
-            it('should equal 20, case 4', function() {
-                assert.equal(getAgeFactor(bca10), 20);
-            });
-
-            it('should equal 50', function() {
-                assert.equal(getAgeFactor(bca11), 50);
+            it('should equal 50, case 1', function() {
+                assert.equal(getAgeFactor(bca9), 50);
             });
 
             it('should equal 50, case 2', function() {
-                assert.equal(getAgeFactor(bca12), 50);
+                assert.equal(getAgeFactor(bca10), 50);
+            });
+
+            it('should equal 50, case 4', function() {
+                assert.equal(getAgeFactor(bca12), 20);
             })
         });
 
@@ -335,20 +335,20 @@ describe('PurchaseOrder', () => {
         });
 
         describe('creditStatus() tests', function() {
-            it('should equal bad in restricted mode', function() {
-                assert.equal(creditStatus(cs1, 'restricted'), 'bad');
+            it('should equal adverse in restricted mode', function() {
+                assert.equal(creditStatus(cs1, 'restricted'), 'adverse');
             });
 
-            it('should equal bad in restricted mode, case 2', function() {
-                assert.equal(creditStatus(cs2, 'restricted'), 'bad');
+            it('should equal adverse in restricted mode, case 2', function() {
+                assert.equal(creditStatus(cs2, 'restricted'), 'adverse');
             });
 
-            it('should equal bad in default mode', function() {
-                assert.equal(creditStatus(cs3, 'default'), 'bad');
+            it('should equal adverse in default mode', function() {
+                assert.equal(creditStatus(cs3, 'default'), 'adverse');
             });
 
-            it('should equal bad in default mode, case 2', function() {
-                assert.equal(creditStatus(cs4, 'default'), 'bad');
+            it('should equal adverse in default mode, case 2', function() {
+                assert.equal(creditStatus(cs4, 'default'), 'adverse');
             });
 
             it('should equal good in restricted mode', function() {
@@ -393,19 +393,19 @@ describe('PurchaseOrder', () => {
 
     describe('Decision Table Testing', function() {
         // Setup accounts for decision testing
-        const d1 = new ClientAccount(35, 12000, 75); // excellent, good
+        const d1 = new ClientAccount(55, 4500, 75); // excellent, good
         const d2 = new ClientAccount(20, 3500,  75); // good, good
-        const d3 = new ClientAccount(5, 300, 85); // fair, good
-        const d4 = new ClientAccount(17, 50, 75); // poor, good
+        const d3 = new ClientAccount(25, 300, 85); // acceptable, good
+        const d4 = new ClientAccount(17, 350, 75); // adverse, good
         const d5 = new ClientAccount(0, -100, 95); // invalid, good
-        const d6 = new ClientAccount(55, 5000, 40); // good, bad
-        const d7 = new ClientAccount(15, 500, 40); // fair, bad
+        const d6 = new ClientAccount(35, 900, 40); // good, adverse
+        const d7 = new ClientAccount(15, 500, 40); // acceptable, adverse
         const d8 = new ClientAccount(0, -100, -15); // invalid, invalid
-        const d9 = new ClientAccount(7, 50, 30); // poor, bad
+        const d9 = new ClientAccount(7, 50, 30); // adverse, adverse
 
         // Setup inventory for decision testing 
         const inv1 = new Inventory('apple', 0);
-        const inv2 = new Inventory('banana', 100);
+        const inv2 = new Inventory('banana', 50);
         const inv3 = new Inventory('grape', 100);
         const invArray = [inv1, inv2, inv3];
 

@@ -134,33 +134,32 @@ const productStatus=function (product,inventory,inventoryThreshold) {
 const orderHandling=function(clientAccount ,product,inventory,inventoryThreshold,creditCheckMode) {
 
 
-    let aStautus=accountStatus(clientAccount );
+    let aStatus=accountStatus(clientAccount );
 
     let cStatus=creditStatus(clientAccount ,creditCheckMode);
 
     let pStatus=productStatus(product,inventory,inventoryThreshold);
 
-   if ((aStautus=== "invalid"||cStatus=== "invalid"||pStatus !== "invalid")|| 
-   (aStautus=== "acceptable" &&  cStatus=== "adverse" && pStatus !=="limited") ||
-   (aStautus=== "adverse" && cStatus=== "good" && pStatus=== "soldout") || 
-   (aStautus=== "adverse" && cStatus=== "adverse" ))
+   if (
+       ([aStatus, cStatus, pStatus].includes("invalid"))||
+   (aStatus=== "acceptable" &&  cStatus=== "adverse" && (pStatus ==="limited" || pStatus=== "soldout")) ||
+   (aStatus=== "adverse" && cStatus=== "good" && pStatus=== "soldout") ||
+   (aStatus=== "adverse" && cStatus=== "adverse" ))
         return "rejected";
 
- else if ((aStautus=== "excellent")|| (aStautus=== "good" && cStatus=== "good")||
-(aStautus=== "acceptable" && cStatus=== "good" && 	pStatus=== "available"))
+ else if ((aStatus=== "excellent")||
+       (aStatus=== "good" && cStatus=== "good")||
+( (aStatus=== "acceptable" || aStatus === "adverse") && cStatus=== "good" && pStatus=== "available"))
         return "accepted";
 
 
-else if ((aStautus=== "good" && cStatus === "adverse")||(aStautus=== "acceptable" && cStatus=== "adverse"
+else if ((aStatus=== "good" && cStatus === "adverse")||(aStatus=== "acceptable" && cStatus=== "adverse"
  && pStatus=== "available"))
         return "underReview";
 
-else if ((aStautus === "acceptable" && cStatus=== "good" && pStatus !== "available")
-||(aStautus=== "adverse" && cStatus=== "good" && pStatus=== "limited"))
+else if ((aStatus === "acceptable" && cStatus=== "good" && pStatus !== "available")
+||(aStatus=== "adverse" && cStatus=== "good" && pStatus=== "limited"))
         return "pending";
-
-
-
 
 
 };
